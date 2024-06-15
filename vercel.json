@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "packages/canyontest-backend/$1"
+      "dest": "packages/canyontest-backend/dist/$1"
     }
   ]
 }
