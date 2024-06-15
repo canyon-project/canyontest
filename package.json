@@ -1,6 +1,6 @@
 {
   "name": "canyon",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Canyon is a JavaScript code coverage solution",
   "author": "wr_zhang25@163.com",
   "private": true,
@@ -10,8 +10,15 @@
     "test": "pnpm -r do-test",
     "dev": "pnpm -r do-dev",
     "build": "pnpm -r do-build",
-    "start": "pnpm -r do-start"
+    "migrate": "npx prisma migrate dev --schema ./packages/canyontest-backend/prisma/schema.prisma",
+    "rm": "find ./ -type d \\( -name \"dist\" -o -name \"node_modules\" \\) -exec rm -rf {} +",
+    "preinstall": "node ./scripts/check.js",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.2.1",
+    "@commitlint/config-conventional": "^19.1.0",
+    "husky": "^9.0.11",
+    "prisma": "5.8.1"
   }
 }
