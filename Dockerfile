@@ -10,4 +10,5 @@ RUN npm install pnpm -g
 RUN pnpm i
 RUN pnpm run build
 
-RUN pnpm run start
+EXPOSE 8080
+CMD ["node", "packages/canyontest-backend/dist/main.js" ]
