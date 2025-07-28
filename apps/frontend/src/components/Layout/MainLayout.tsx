@@ -7,6 +7,7 @@ import {
   UserOutlined,
   SettingOutlined,
   LogoutOutlined,
+  CodeOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -30,6 +31,11 @@ const MainLayout: React.FC = () => {
       key: '/dashboard',
       icon: <DashboardOutlined />,
       label: t('menu.dashboard'),
+    },
+    {
+      key: '/code-browser',
+      icon: <CodeOutlined />,
+      label: t('menu.codeBrowser'),
     },
     {
       key: '/users',

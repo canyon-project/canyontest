@@ -15,7 +15,8 @@
   "menu": {
     "dashboard": "仪表盘",
     "users": "用户管理",
-    "settings": "系统设置"
+    "settings": "系统设置",
+    "codeBrowser": "代码浏览"
   },
   "auth": {
     "loginTitle": "用户登录",

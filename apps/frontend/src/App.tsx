@@ -7,6 +7,8 @@ import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Users from './pages/Users/Users';
 import Settings from './pages/Settings/Settings';
+import CodeBrowser from './pages/CodeBrowser/CodeBrowser';
+import OAuthCallback from './pages/OAuthCallback/OAuthCallback';
 import './i18n';
 import 'antd/dist/reset.css';
 
@@ -45,6 +47,10 @@ function App() {
               }
             />
             <Route
+              path="/oauth/callback"
+              element={<OAuthCallback />}
+            />
+            <Route
               path="/"
               element={
                 <ProtectedRoute>
@@ -54,6 +60,7 @@ function App() {
             >
               <Route index element={<Navigate to="/dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
+              <Route path="code-browser" element={<CodeBrowser />} />
               <Route path="users" element={<Users />} />
               <Route path="settings" element={<Settings />} />
             </Route>

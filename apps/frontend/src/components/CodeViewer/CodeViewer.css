@@ -1,0 +1,42 @@
+.code-viewer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.code-viewer-header {
+  margin-bottom: 16px;
+}
+
+.code-viewer-content {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+}
+
+.file-tree {
+  width: 300px;
+  min-width: 300px;
+}
+
+.file-tree .ant-card-body {
+  padding: 12px;
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+.code-editor {
+  flex: 1;
+}
+
+.code-editor .ant-card-body {
+  padding: 0;
+}
+
+.ant-tree .ant-tree-node-content-wrapper {
+  padding: 2px 4px;
+}
+
+.ant-tree .ant-tree-title {
+  font-size: 13px;
+}

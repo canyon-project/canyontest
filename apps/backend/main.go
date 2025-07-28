@@ -71,6 +71,15 @@ func main() {
 			// 用户个人信息和设置
 			protected.GET("/profile", handlers.GetProfile)
 			protected.PUT("/settings", handlers.UpdateSettings)
+			
+			// Gitea相关路由
+			protected.GET("/gitea/auth-url", handlers.GetGiteaAuthURL)
+			protected.POST("/gitea/callback", handlers.GiteaCallback)
+			protected.GET("/gitea/status", handlers.GetGiteaStatus)
+			protected.DELETE("/gitea/auth", handlers.RevokeGiteaAuth)
+			protected.GET("/gitea/repositories", handlers.GetRepositories)
+			protected.GET("/gitea/repos/:owner/:repo/contents", handlers.GetDirectoryContents)
+			protected.GET("/gitea/repos/:owner/:repo/file", handlers.GetFileContent)
 		}
 	}
 

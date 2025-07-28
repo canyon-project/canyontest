@@ -32,6 +32,10 @@ services:
       - DB_NAME=canyontest
       - DB_SSLMODE=disable
       - JWT_SECRET=your-jwt-secret-key
+      - GITEA_BASE_URL=https://gitea.com
+      - GITEA_CLIENT_ID=your-gitea-client-id
+      - GITEA_CLIENT_SECRET=your-gitea-client-secret
+      - GITEA_REDIRECT_URL=http://localhost:8080/oauth/callback
 
 volumes:
   postgres_data:

@@ -15,7 +15,8 @@
   "menu": {
     "dashboard": "Dashboard",
     "users": "User Management",
-    "settings": "System Settings"
+    "settings": "System Settings",
+    "codeBrowser": "Code Browser"
   },
   "auth": {
     "loginTitle": "User Login",

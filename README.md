@@ -15,6 +15,11 @@
 - ✅ 用户设置持久化到数据库
 - ✅ JWT Token 本地存储
 - ✅ Bearer Token 请求认证
+- ✅ Gitea OAuth 集成
+- ✅ 仓库浏览和选择
+- ✅ Monaco Editor 代码查看
+- ✅ 文件树导航
+- ✅ 语法高亮支持
 
 ### 后端功能
 - ✅ Go + Gin 框架
@@ -25,6 +30,10 @@
 - ✅ 用户注册/登录
 - ✅ 用户设置管理
 - ✅ 静态文件服务
+- ✅ Gitea OAuth 2.0 集成
+- ✅ 仓库 API 代理
+- ✅ 文件内容获取
+- ✅ 目录结构遍历
 
 ## 快速开始
 
@@ -106,13 +115,22 @@ go run main.go
 
 ### 后端环境变量
 ```bash
+# 数据库配置
 DB_HOST=localhost          # 数据库主机
 DB_PORT=5432              # 数据库端口
 DB_USER=postgres          # 数据库用户名
 DB_PASSWORD=postgres      # 数据库密码
 DB_NAME=canyontest        # 数据库名称
 DB_SSLMODE=disable        # SSL 模式
+
+# JWT配置
 JWT_SECRET=your-secret    # JWT 密钥
+
+# Gitea OAuth配置
+GITEA_BASE_URL=https://gitea.com                    # Gitea服务器地址
+GITEA_CLIENT_ID=your-gitea-client-id               # Gitea OAuth应用ID
+GITEA_CLIENT_SECRET=your-gitea-client-secret       # Gitea OAuth应用密钥
+GITEA_REDIRECT_URL=http://localhost:8080/oauth/callback  # OAuth回调地址
 ```
 
 ## Docker 部署
@@ -142,14 +160,41 @@ docker run -p 8080:8080 zhangtao25/canyontest
 - `zhangtao25/canyontest:latest` - 最新版本
 - `zhangtao25/canyontest:main-<commit-sha>` - 带提交SHA的版本
 
+## Gitea OAuth 配置
+
+### 1. 创建 Gitea OAuth 应用
+
+1. 登录你的 Gitea 实例
+2. 进入 `Settings` > `Applications`
+3. 点击 `Create a new OAuth2 Application`
+4. 填写应用信息：
+   - **Application Name**: CanyonTest
+   - **Redirect URI**: `http://localhost:8080/oauth/callback`
+   - **Scopes**: `read:repository`, `read:user`
+5. 保存后获得 `Client ID` 和 `Client Secret`
+
+### 2. 配置环境变量
+
+将获得的 Client ID 和 Client Secret 配置到环境变量中：
+
+```bash
+GITEA_BASE_URL=https://your-gitea-instance.com
+GITEA_CLIENT_ID=your-client-id
+GITEA_CLIENT_SECRET=your-client-secret
+GITEA_REDIRECT_URL=http://localhost:8080/oauth/callback
+```
+
 ## 使用说明
 
 1. **注册/登录**: 访问 `/login` 页面进行用户注册或登录
 2. **导航**: 使用左侧菜单进行页面导航
-3. **用户设置**: 点击左下角用户头像打开设置面板
-4. **主题切换**: 在设置中可以切换浅色/深色主题
-5. **语言切换**: 支持中文和英文切换
-6. **主题色**: 可以自定义主题色
+3. **Gitea 集成**: 在代码浏览页面连接你的 Gitea 账户
+4. **仓库浏览**: 选择仓库后可以浏览代码文件
+5. **代码查看**: 使用 Monaco Editor 查看代码，支持语法高亮
+6. **用户设置**: 点击左下角用户头像打开设置面板
+7. **主题切换**: 在设置中可以切换浅色/深色主题
+8. **语言切换**: 支持中文和英文切换
+9. **主题色**: 可以自定义主题色
 
 ## 技术栈
 
