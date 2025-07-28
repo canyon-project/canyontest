@@ -10,7 +10,7 @@ RUN npm config set registry https://registry.npmmirror.com
 
 # 复制前端相关文件
 COPY apps/frontend/package.json apps/frontend/package-lock.json* ./apps/frontend/
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY package.json pnpm-workspace.yaml ./
 
 # 安装 pnpm 并设置镜像源
 RUN npm install -g pnpm
