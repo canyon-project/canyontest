@@ -1,58 +1,91 @@
-// API 基础配置
+import axios from 'axios';
+
 const API_BASE_URL = '/api/v1';
 
-// 用户接口类型定义
+// 创建axios实例
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 10000,
+});
+
+// 请求拦截器 - 添加token
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// 响应拦截器 - 处理token过期
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 export interface User {
   id: number;
-  name: string;
+  username: string;
   email: string;
+  avatar?: string;
+  settings: {
+    language: string;
+    theme: string;
+    theme_color: string;
+  };
+  created_at: string;
+  updated_at: string;
 }
 
-export interface ApiResponse<T> {
-  code: number;
-  data: T;
-  message: string;
+export interface LoginRequest {
+  username: string;
+  password: string;
 }
 
-// 通用请求函数
-async function request<T>(url: string, options?: RequestInit): Promise<ApiResponse<T>> {
-  const response = await fetch(`${API_BASE_URL}${url}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...options?.headers,
-    },
-    ...options,
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  return response.json();
+export interface RegisterRequest {
+  username: string;
+  email: string;
+  password: string;
 }
 
-// API 服务
-export const apiService = {
-  // 健康检查
-  async ping() {
-    return request<{ message: string }>('/ping');
-  },
+export interface LoginResponse {
+  token: string;
+  user: User;
+}
 
-  // 获取用户列表
-  async getUsers() {
-    return request<User[]>('/users');
-  },
+export interface UpdateSettingsRequest {
+  language?: string;
+  theme?: string;
+  theme_color?: string;
+}
 
-  // 获取单个用户
-  async getUser(id: number) {
-    return request<User>(`/users/${id}`);
-  },
-
-  // 创建用户
-  async createUser(user: Omit<User, 'id'>) {
-    return request<User>('/users', {
-      method: 'POST',
-      body: JSON.stringify(user),
-    });
-  },
+// 认证相关API
+export const authAPI = {
+  login: (data: LoginRequest) => api.post<LoginResponse>('/auth/login', data),
+  register: (data: RegisterRequest) => api.post<LoginResponse>('/auth/register', data),
+  getProfile: () => api.get<User>('/profile'),
+  updateSettings: (data: UpdateSettingsRequest) => api.put<User>('/settings', data),
 };
+
+// 用户相关API
+export const userAPI = {
+  getUsers: () => api.get<User[]>('/users'),
+  getUser: (id: number) => api.get<User>(`/users/${id}`),
+  createUser: (data: any) => api.post<User>('/users', data),
+};
+
+export default api;

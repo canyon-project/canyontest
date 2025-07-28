@@ -1,6 +1,7 @@
 package main
 
 import (
+	"backend/config"
 	"backend/handlers"
 	"backend/middleware"
 	"net/http"
@@ -37,6 +38,9 @@ func StaticFileHandler(staticPath string) gin.HandlerFunc {
 }
 
 func main() {
+	// 初始化数据库
+	config.InitDatabase()
+
 	// 创建 Gin 路由器
 	r := gin.Default()
 
@@ -51,10 +55,23 @@ func main() {
 	{
 		api.GET("/ping", handlers.Ping)
 		
-		// 用户相关路由
-		api.GET("/users", handlers.GetUsers)
-		api.GET("/users/:id", handlers.GetUser)
-		api.POST("/users", handlers.CreateUser)
+		// 认证相关路由（无需认证）
+		api.POST("/auth/register", handlers.Register)
+		api.POST("/auth/login", handlers.Login)
+		
+		// 需要认证的路由
+		protected := api.Group("/")
+		protected.Use(middleware.AuthMiddleware())
+		{
+			// 用户相关路由
+			protected.GET("/users", handlers.GetUsers)
+			protected.GET("/users/:id", handlers.GetUser)
+			protected.POST("/users", handlers.CreateUser)
+			
+			// 用户个人信息和设置
+			protected.GET("/profile", handlers.GetProfile)
+			protected.PUT("/settings", handlers.UpdateSettings)
+		}
 	}
 
 	// 静态文件服务（放在最后，作为 fallback）

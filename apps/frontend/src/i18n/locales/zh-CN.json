@@ -1,0 +1,39 @@
+{
+  "common": {
+    "login": "登录",
+    "logout": "退出登录",
+    "register": "注册",
+    "username": "用户名",
+    "password": "密码",
+    "email": "邮箱",
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认",
+    "settings": "设置",
+    "profile": "个人资料"
+  },
+  "menu": {
+    "dashboard": "仪表盘",
+    "users": "用户管理",
+    "settings": "系统设置"
+  },
+  "auth": {
+    "loginTitle": "用户登录",
+    "registerTitle": "用户注册",
+    "loginSuccess": "登录成功",
+    "loginFailed": "登录失败",
+    "registerSuccess": "注册成功",
+    "registerFailed": "注册失败",
+    "usernameRequired": "请输入用户名",
+    "passwordRequired": "请输入密码",
+    "emailRequired": "请输入邮箱"
+  },
+  "settings": {
+    "language": "语言",
+    "theme": "主题",
+    "themeColor": "主题色",
+    "light": "浅色",
+    "dark": "深色",
+    "updateSuccess": "设置更新成功"
+  }
+}

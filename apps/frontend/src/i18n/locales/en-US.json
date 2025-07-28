@@ -1,0 +1,39 @@
+{
+  "common": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "settings": "Settings",
+    "profile": "Profile"
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "users": "User Management",
+    "settings": "System Settings"
+  },
+  "auth": {
+    "loginTitle": "User Login",
+    "registerTitle": "User Register",
+    "loginSuccess": "Login successful",
+    "loginFailed": "Login failed",
+    "registerSuccess": "Register successful",
+    "registerFailed": "Register failed",
+    "usernameRequired": "Please enter username",
+    "passwordRequired": "Please enter password",
+    "emailRequired": "Please enter email"
+  },
+  "settings": {
+    "language": "Language",
+    "theme": "Theme",
+    "themeColor": "Theme Color",
+    "light": "Light",
+    "dark": "Dark",
+    "updateSuccess": "Settings updated successfully"
+  }
+}
