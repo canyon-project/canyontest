@@ -17,7 +17,7 @@ RUN npm install -g pnpm
 RUN pnpm config set registry https://registry.npmmirror.com
 
 # 安装依赖
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 # 复制前端源代码
 COPY apps/frontend ./apps/frontend
