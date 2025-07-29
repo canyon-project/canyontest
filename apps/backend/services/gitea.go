@@ -21,11 +21,11 @@ type GiteaService struct {
 
 func NewGiteaService() *GiteaService {
 	baseURL := getEnv("GITEA_BASE_URL", "https://gitea.com")
-	
+
 	config := &oauth2.Config{
 		ClientID:     getEnv("GITEA_CLIENT_ID", ""),
 		ClientSecret: getEnv("GITEA_CLIENT_SECRET", ""),
-		RedirectURL:  getEnv("GITEA_REDIRECT_URL", "http://localhost:8080/api/v1/auth/gitea/callback"),
+		RedirectURL:  getEnv("GITEA_REDIRECT_URL", "http://localhost:5173/oauth/callback"),
 		Scopes:       []string{"read:repository", "read:user"},
 		Endpoint: oauth2.Endpoint{
 			AuthURL:  fmt.Sprintf("%s/login/oauth/authorize", baseURL),
@@ -53,24 +53,24 @@ func (g *GiteaService) GetUser(token *oauth2.Token) (*models.GiteaToken, error) 
 	if err != nil {
 		return nil, err
 	}
-	
+
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", token.AccessToken))
-	
+
 	resp, err := g.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	
+
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("failed to get user info: %d", resp.StatusCode)
 	}
-	
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	var user struct {
 		ID       int64  `json:"id"`
 		Login    string `json:"login"`
@@ -78,11 +78,11 @@ func (g *GiteaService) GetUser(token *oauth2.Token) (*models.GiteaToken, error) 
 		Email    string `json:"email"`
 		Avatar   string `json:"avatar_url"`
 	}
-	
+
 	if err := json.Unmarshal(body, &user); err != nil {
 		return nil, err
 	}
-	
+
 	giteaToken := &models.GiteaToken{
 		AccessToken:  token.AccessToken,
 		RefreshToken: token.RefreshToken,
@@ -93,11 +93,11 @@ func (g *GiteaService) GetUser(token *oauth2.Token) (*models.GiteaToken, error) 
 		GiteaEmail:   user.Email,
 		GiteaAvatar:  user.Avatar,
 	}
-	
+
 	if !token.Expiry.IsZero() {
 		giteaToken.ExpiresAt = &token.Expiry
 	}
-	
+
 	return giteaToken, nil
 }
 
@@ -106,29 +106,29 @@ func (g *GiteaService) GetRepositories(token string) ([]models.Repository, error
 	if err != nil {
 		return nil, err
 	}
-	
+
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", token))
-	
+
 	resp, err := g.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	
+
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("failed to get repositories: %d", resp.StatusCode)
 	}
-	
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	var repos []models.Repository
 	if err := json.Unmarshal(body, &repos); err != nil {
 		return nil, err
 	}
-	
+
 	return repos, nil
 }
 
@@ -138,29 +138,29 @@ func (g *GiteaService) GetFileContent(token, owner, repo, path string) (*models.
 	if err != nil {
 		return nil, err
 	}
-	
+
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", token))
-	
+
 	resp, err := g.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	
+
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("failed to get file content: %d", resp.StatusCode)
 	}
-	
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	var content models.FileContent
 	if err := json.Unmarshal(body, &content); err != nil {
 		return nil, err
 	}
-	
+
 	// 解码base64内容
 	if content.Encoding == "base64" && content.Content != "" {
 		decoded, err := base64.StdEncoding.DecodeString(content.Content)
@@ -170,7 +170,7 @@ func (g *GiteaService) GetFileContent(token, owner, repo, path string) (*models.
 		content.Content = string(decoded)
 		content.Encoding = "utf-8"
 	}
-	
+
 	return &content, nil
 }
 
@@ -180,29 +180,29 @@ func (g *GiteaService) GetDirectoryContents(token, owner, repo, path string) ([]
 	if err != nil {
 		return nil, err
 	}
-	
+
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", token))
-	
+
 	resp, err := g.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	
+
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("failed to get directory contents: %d", resp.StatusCode)
 	}
-	
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	var contents []models.FileContent
 	if err := json.Unmarshal(body, &contents); err != nil {
 		return nil, err
 	}
-	
+
 	return contents, nil
 }
 
