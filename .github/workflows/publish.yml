@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 env:
   CARGO_TERM_COLOR: always
@@ -18,6 +20,41 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Print PR environment variables
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "=== PR 环境变量信息 ==="
+          echo "GITHUB_EVENT_NAME: ${{ github.event_name }}"
+          echo "GITHUB_REPOSITORY: ${{ github.repository }}"
+          echo "GITHUB_ACTOR: ${{ github.actor }}"
+          echo "GITHUB_HEAD_REF: ${{ github.head_ref }}"
+          echo "GITHUB_BASE_REF: ${{ github.base_ref }}"
+          echo ""
+          echo "=== PR 详细信息 ==="
+          echo "PR Number: ${{ github.event.pull_request.number }}"
+          echo "PR Title: ${{ github.event.pull_request.title }}"
+          echo "PR State: ${{ github.event.pull_request.state }}"
+          echo ""
+          echo "=== Fork 仓库信息（重要）==="
+          echo "Fork 仓库完整名称: ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "Fork 仓库克隆 URL (HTTPS): ${{ github.event.pull_request.head.repo.clone_url }}"
+          echo "Fork 仓库克隆 URL (SSH): ${{ github.event.pull_request.head.repo.ssh_url }}"
+          echo "Fork 仓库 Git URL: ${{ github.event.pull_request.head.repo.git_url }}"
+          echo "Fork 仓库所有者: ${{ github.event.pull_request.head.repo.owner.login }}"
+          echo "Fork 仓库名称: ${{ github.event.pull_request.head.repo.name }}"
+          echo ""
+          echo "=== 提交信息 ==="
+          echo "PR 源分支: ${{ github.event.pull_request.head.ref }}"
+          echo "PR 目标分支: ${{ github.event.pull_request.base.ref }}"
+          echo "PR 提交 SHA: ${{ github.event.pull_request.head.sha }}"
+          echo "PR 提交消息: ${{ github.event.pull_request.head.commit.message }}"
+          echo ""
+          echo "=== 其他有用信息 ==="
+          echo "PR 创建者: ${{ github.event.pull_request.user.login }}"
+          echo "PR 是否来自 Fork: ${{ github.event.pull_request.head.repo.full_name != github.repository }}"
+          echo "GITHUB_REF: ${{ github.ref }}"
+          echo "GITHUB_SHA: ${{ github.sha }}"
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -50,6 +87,7 @@ jobs:
         run: cargo doc --no-deps --all-features
 
       - name: Publish to crates.io
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
         run: |
