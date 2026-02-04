@@ -1,9 +1,6 @@
 name: Node.js CI
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -31,4 +28,4 @@ jobs:
 
       - name: Run CanyonJS upload
         run: |
-          npx @canyonjs/cli upload --debug true --scene k1=v2 --scene k2=v3 --dsn=https://app.canyonjs.io/api/coverage/map/init --sha ${{ github.sha }} --repo_id ${{ github.repository_id }}
+          npx @canyonjs/cli upload --debug true --dsn=https://app.canyonjs.io/api/coverage/map/init --sha ${{ github.event.pull_request.head.sha }} --repo_id ${{ github.event.pull_request.head.repo.id }} --provider=github
