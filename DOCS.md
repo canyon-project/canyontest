@@ -17,13 +17,13 @@ cargo doc --no-deps
 cargo doc --open
 
 # 生成文档但不打开浏览器
-cargo doc --no-deps && echo "文档已生成到 target/doc/canyontest/index.html"
+cargo doc --no-deps && echo "文档已生成到 target/doc/canyon/index.html"
 ```
 
 ### 查看文档
 
 文档生成后，可以在以下位置找到：
-- HTML 文档：`target/doc/canyontest/index.html`
+- HTML 文档：`target/doc/canyon/index.html`
 - 使用 `cargo doc --open` 会自动在浏览器中打开
 
 ## 文档注释语法
@@ -47,7 +47,7 @@ Rust 使用特殊的注释语法来生成文档：
 /// # Examples
 /// 
 /// ```
-/// use canyontest::add;
+/// use canyon::add;
 /// assert_eq!(add(2, 3), 5);
 /// ```
 pub fn my_function(param1: i32, param2: i32) -> i32 {
@@ -64,7 +64,7 @@ pub fn my_function(param1: i32, param2: i32) -> i32 {
 //! # 示例
 //!
 //! ```
-//! use canyontest::add;
+//! use canyon::add;
 //! let result = add(1, 2);
 //! ```
 ```
@@ -75,7 +75,7 @@ pub fn my_function(param1: i32, param2: i32) -> i32 {
 
 1. **发布到 crates.io**：使用 GitHub Action 或手动运行 `cargo publish`
 2. **等待构建**：docs.rs 通常在几分钟内自动构建文档
-3. **访问文档**：文档会在 `https://docs.rs/canyontest/0.1.0/` 自动可用
+3. **访问文档**：文档会在 `https://docs.rs/canyon/0.1.0/` 自动可用
 
 ### docs.rs 自动文档的特点
 

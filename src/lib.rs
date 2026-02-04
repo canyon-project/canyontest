@@ -1,4 +1,4 @@
-//! # canyontest
+//! # canyon
 //!
 //! 一个简单的 Rust 库，提供了一个 `add` 函数。
 
@@ -16,7 +16,7 @@
 /// # Examples
 ///
 /// ```
-/// use canyontest::add;
+/// use canyon::add;
 ///
 /// assert_eq!(add(2, 3), 5);
 /// assert_eq!(add(10, 20), 30);

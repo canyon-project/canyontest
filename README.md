@@ -1,4 +1,4 @@
-# canyontest
+# canyon
 
 一个简单的 Rust 库，提供了一个 `add` 函数。
 
@@ -12,13 +12,13 @@
 
 ```toml
 [dependencies]
-canyontest = "0.1.0"
+canyon = "0.1.0"
 ```
 
 然后在代码中使用：
 
 ```rust
-use canyontest::add;
+use canyon::add;
 
 fn main() {
     let result = add(2, 3);
@@ -38,12 +38,12 @@ cargo doc --open
 cargo doc --no-deps
 ```
 
-文档会生成在 `target/doc/canyontest/index.html`
+文档会生成在 `target/doc/canyon/index.html`
 
 ### 在线文档
 
 发布到 crates.io 后，文档会自动在 docs.rs 上可用：
-- 文档地址：https://docs.rs/canyontest
+- 文档地址：https://docs.rs/canyon
 
 ## 发布到 crates.io
 

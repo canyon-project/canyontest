@@ -1,15 +1,15 @@
 [package]
-name = "canyontest"
+name = "canyon"
 version = "0.1.1"
 edition = "2021"
 description = "A simple Rust library with an add function"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/canyon-project/canyontest"
+repository = "https://github.com/canyon-project/canyon"
 authors = ["Travis Zhang <wr.zhang25@gmail.com>"]
-documentation = "https://docs.rs/canyontest"
+documentation = "https://docs.rs/canyon"
 
 [lib]
-name = "canyontest"
+name = "canyon"
 path = "src/lib.rs"
 
 [dependencies]
