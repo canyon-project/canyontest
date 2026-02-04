@@ -25,4 +25,4 @@ jobs:
 
       - name: Run CanyonJS upload
         run: |
-          npx @canyonjs/upload --debug true --scene k1=v2 --scene k2=v3
+          npx @canyonjs/cli upload --debug true --scene k1=v2 --scene k2=v3
