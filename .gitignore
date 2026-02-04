@@ -17,3 +17,7 @@ Thumbs.db
 
 
 node_modules
+
+coverage
+
+.canyon_output
