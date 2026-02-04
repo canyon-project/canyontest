@@ -26,8 +26,28 @@ fn main() {
 }
 ```
 
+## 文档
+
+### 本地生成文档
+
+```bash
+# 生成文档并在浏览器中打开
+cargo doc --open
+
+# 或者只生成文档
+cargo doc --no-deps
+```
+
+文档会生成在 `target/doc/canyontest/index.html`
+
+### 在线文档
+
+发布到 crates.io 后，文档会自动在 docs.rs 上可用：
+- 文档地址：https://docs.rs/canyontest
+
 ## 发布到 crates.io
 
 1. 在 crates.io 上获取 API token
 2. 在 GitHub 仓库的 Settings > Secrets 中添加 `CARGO_REGISTRY_TOKEN`
-3. 创建并发布一个 release，GitHub Action 会自动发布到 crates.io
+3. 推送到 main 分支，GitHub Action 会自动发布到 crates.io
+4. 发布后，docs.rs 会在几分钟内自动构建并托管文档

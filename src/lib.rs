@@ -1,4 +1,17 @@
-/// Adds two numbers together1.
+//! # canyontest
+//!
+//! 一个简单的 Rust 库，提供了一个 `add` 函数。
+
+/// Adds two numbers together.
+///
+/// # Arguments
+///
+/// * `a` - 第一个数字
+/// * `b` - 第二个数字
+///
+/// # Returns
+///
+/// 返回两个数字的和
 ///
 /// # Examples
 ///
@@ -6,6 +19,7 @@
 /// use canyontest::add;
 ///
 /// assert_eq!(add(2, 3), 5);
+/// assert_eq!(add(10, 20), 30);
 /// ```
 pub fn add(a: i32, b: i32) -> i32 {
     a + b
