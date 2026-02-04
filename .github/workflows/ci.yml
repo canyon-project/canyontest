@@ -31,4 +31,4 @@ jobs:
 
       - name: Run CanyonJS upload
         run: |
-          npx @canyonjs/cli upload --debug true --scene k1=v2 --scene k2=v3 --dsn=https://app.canyonjs.io/api/coverage/map/init
+          npx @canyonjs/cli upload --debug true --scene k1=v2 --scene k2=v3 --dsn=https://app.canyonjs.io/api/coverage/map/init --sha ${{ github.sha }} --repo_id ${{ github.repository_id }}
