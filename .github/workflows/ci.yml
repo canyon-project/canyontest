@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,6 +23,12 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install dependencies
+        run: npm install -g pnpm && pnpm install
+
+      - name: Run tests
+        run: pnpm run test
+
       - name: Run CanyonJS upload
         run: |
-          npx @canyonjs/cli upload --debug true --scene k1=v2 --scene k2=v3
+          npx @canyonjs/cli upload --debug true --scene k1=v2 --scene k2=v3 --dsn=http://app.canyonjs.io/api/coverage/map/init
