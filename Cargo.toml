@@ -1,0 +1,16 @@
+[package]
+name = "canyontest"
+version = "0.1.0"
+edition = "2021"
+description = "A simple Rust library with an add function"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/canyon-project/canyontest"
+authors = ["Travis Zhang <wr.zhang25@gmail.com>"]
+
+[lib]
+name = "canyontest"
+path = "src/lib.rs"
+
+[dependencies]
+
+[dev-dependencies]
