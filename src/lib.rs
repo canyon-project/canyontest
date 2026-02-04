@@ -1,4 +1,4 @@
-/// Adds two numbers together.
+/// Adds two numbers together1.
 ///
 /// # Examples
 ///
