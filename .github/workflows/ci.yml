@@ -26,6 +26,9 @@ jobs:
       - name: Run tests
         run: pnpm run test
 
+      - name: Run git-diff
+        run: npx @canyonjs/git-diff
+
       - name: Run CanyonJS upload
         run: |
           npx @canyonjs/cli upload --debug true --dsn=https://app.canyonjs.io/api/coverage/map/init --sha ${{ github.event.pull_request.head.sha }} --repo_id ${{ github.event.pull_request.head.repo.id }} --provider=github
