@@ -35,12 +35,7 @@ jobs:
           coverage-file: coverage/coverage-final.json
           canyon-url: https://app.canyonjs.io
           instrument-cwd: ${{ github.workspace }}
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
