@@ -23,12 +23,28 @@ jobs:
       - name: Install dependencies
         run: npm install -g pnpm && pnpm install
 
-      - name: Run tests
-        run: pnpm run test
-
       - name: Run git-diff
         run: npx @canyonjs/git-diff
 
-      - name: Run CanyonJS upload
-        run: |
-          npx @canyonjs/cli upload --debug true --dsn=https://app.canyonjs.io/api/coverage/map/init --sha ${{ github.event.pull_request.head.sha }} --repo_id ${{ github.event.pull_request.head.repo.id }} --provider=github
+      - name: Run tests
+        run: pnpm run test
+
+      - name: Upload coverage to Canyon
+        uses: canyon-project/canyon-action@v1.0.13
+        with:
+          coverage-file: coverage/coverage-final.json
+          canyon-url: https://app.canyonjs.io
+          instrument-cwd: ${{ github.workspace }}
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 30
+        continue-on-error: true
