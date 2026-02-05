@@ -30,7 +30,7 @@ jobs:
         run: pnpm run test
 
       - name: Upload coverage to Canyon
-        uses: canyon-project/canyon-action@v1.0.9
+        uses: canyon-project/canyon-action@v1.0.13
         with:
           coverage-file: coverage/coverage-final.json
           canyon-url: https://app.canyonjs.io
