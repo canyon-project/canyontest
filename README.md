@@ -51,3 +51,5 @@ cargo doc --no-deps
 2. 在 GitHub 仓库的 Settings > Secrets 中添加 `CARGO_REGISTRY_TOKEN`
 3. 推送到 main 分支，GitHub Action 会自动发布到 crates.io
 4. 发布后，docs.rs 会在几分钟内自动构建并托管文档
+
+5. 
