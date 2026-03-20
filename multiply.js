@@ -1,4 +1,4 @@
 export function multiply(a, b) {
-    console.log('1235')
+    console.log('12315')
   return a * b;
 }
