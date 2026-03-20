@@ -23,14 +23,11 @@ jobs:
       - name: Install dependencies
         run: npm install -g pnpm && pnpm install
 
-      - name: Run git-diff
-        run: npx @canyonjs/git-diff
-
       - name: Run tests
         run: pnpm run test
 
       - name: Upload coverage to Canyon
-        uses: canyon-project/canyon-action@v1
+        uses: canyon-project/canyon-action@v1.0.26
         with:
           coverage-file: coverage/coverage-final.json
           canyon-url: https://app.canyonjs.io
